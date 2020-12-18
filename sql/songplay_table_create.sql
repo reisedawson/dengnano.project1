@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS songplays (
-    songplay_id integer NOT NULL PRIMARY KEY
+    songplay_id SERIAL PRIMARY KEY
     , start_time timestamptz NOT NULL
     , user_id integer NOT NULL
     , user_level varchar -- renamed from level due to keyword conflict

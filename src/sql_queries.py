@@ -24,8 +24,7 @@ time_table_insert = open('sql/time_table_insert.sql', 'r').read()
 
 # FIND SONGS
 
-song_select = ("""
-""")
+song_select = open('sql/song_select.sql', 'r').read()
 
 # QUERY LISTS
 
