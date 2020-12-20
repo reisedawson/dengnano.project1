@@ -2,5 +2,4 @@
 ## Data Modelling with Postgres
 
 This is the first project issued as part of Udacity's Data Engineering Nanodegree program.
-Testing something.
-Testing something else.
+
