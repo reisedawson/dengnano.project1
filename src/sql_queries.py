@@ -8,11 +8,11 @@ time_table_drop = open('sql/time_table_drop.sql', 'r').read()
 
 # CREATE TABLES
 
-songplay_table_create = open('sql/songplay_table_create.sql', 'r').read()
 user_table_create = open('sql/user_table_create.sql', 'r').read()
 song_table_create = open('sql/song_table_create.sql', 'r').read()
 artist_table_create = open('sql/artist_table_create.sql', 'r').read()
 time_table_create = open('sql/time_table_create.sql', 'r').read()
+songplay_table_create = open('sql/songplay_table_create.sql', 'r').read()
 
 # INSERT RECORDS
 
