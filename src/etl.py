@@ -2,7 +2,9 @@ import os
 import glob
 import psycopg2
 import pandas as pd
-from sql_queries import *
+from sql_queries import song_table_insert, artist_table_insert, \
+                        time_table_insert, user_table_insert, song_select, \
+                        songplay_table_insert
 
 
 def process_song_file(cur, filepath):
@@ -10,11 +12,14 @@ def process_song_file(cur, filepath):
     df = pd.read_json(open(filepath, 'r'), typ='series')
 
     # insert song record
-    song_data = df.loc[['song_id', 'artist_id', 'title', 'year', 'duration']].values.tolist()
+    song_data = df.loc[['song_id', 'artist_id', 'title', 'year',
+                        'duration']].values.tolist()
     cur.execute(song_table_insert, song_data)
 
     # insert artist record
-    artist_data = df.loc[['artist_id', 'artist_name', 'artist_location', 'artist_latitude', 'artist_longitude']].values.tolist()
+    artist_data = df.loc[['artist_id', 'artist_name', 'artist_location',
+                          'artist_latitude',
+                          'artist_longitude']].values.tolist()
     cur.execute(artist_table_insert, artist_data)
 
 
@@ -26,19 +31,22 @@ def process_log_file(cur, filepath):
     df = df.loc[df['page'] == 'NextSong']
 
     # convert timestamp column to datetime
-    df['ts'] = pd.to_datetime(df['ts'],unit='ms')
+    df['ts'] = pd.to_datetime(df['ts'], unit='ms')
     t = df['ts']
 
     # insert time data records
-    time_data = (t, t.dt.hour, t.dt.day, t.dt.isocalendar().week, t.dt.month, t.dt.year, t.dt.weekday)
-    column_labels = ('timestamp', 'hour', 'day', 'weekofyear', 'month', 'year', 'weekday')
+    time_data = (t, t.dt.hour, t.dt.day, t.dt.isocalendar().week, t.dt.month,
+                 t.dt.year, t.dt.weekday)
+    column_labels = ('timestamp', 'hour', 'day', 'weekofyear', 'month', 'year',
+                     'weekday')
     time_df = pd.DataFrame(dict(zip(column_labels, time_data)))
 
     for i, row in time_df.iterrows():
         cur.execute(time_table_insert, list(row))
 
     # load user table
-    user_df = df.loc[:,['userId', 'firstName', 'lastName', 'gender', 'level']].drop_duplicates(ignore_index=False)
+    user_df = df.loc[:, ['userId', 'firstName', 'lastName', 'gender',
+                         'level']].drop_duplicates(ignore_index=False)
 
     # insert user records
     for i, row in user_df.iterrows():
@@ -57,7 +65,9 @@ def process_log_file(cur, filepath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = (row['ts'], row['userId'], row['level'], songid, artistid, row['sessionId'], row['location'], row['userAgent'])
+        songplay_data = (row['ts'], row['userId'], row['level'], songid,
+                         artistid, row['sessionId'], row['location'],
+                         row['userAgent'])
         cur.execute(songplay_table_insert, songplay_data)
 
 
@@ -81,7 +91,8 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
-    conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
+    conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student \
+                            password=student")
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
