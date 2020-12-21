@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS users (
     , first_name varchar
     , last_name varchar
     , gender varchar(1)
-    , user_level varchar
+    , user_level varchar CHECK (user_level IN ('free', 'paid'))
 );
