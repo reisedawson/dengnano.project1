@@ -37,10 +37,10 @@ The second data source is a directory of user activity logs organised into folde
 
 To optimise this data for analytical queries we are modelling as a star schema. The following tables were created:
 
-Fact table: 
+**Fact table:** 
 - songplays
 
-Dimension tables:
+**Dimension tables:**
 - songs
 - artists
 - users
@@ -50,7 +50,7 @@ Structuring the data in this way allows easy, fast aggregation queries over the 
 
 A high level ERD is demonstrated below (generated using DbVisualizer)
 
-![sparkifydb ERD](/assets/erd.png)
+![sparkifydb ERD](/assets/erd.PNG)
 
 There are several constraints applied to the database that may be worth highlighting:
 
@@ -112,6 +112,5 @@ This was generated using the following SQL SELECT query:
 
 
 TODO:
-- Format the table names in the constraints section
 - Insert data using COPY FROM
 
