@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS dim_time (
-    start_time timestamptz NOT NULL PRIMARY KEY
+    start_time timestamptz PRIMARY KEY
     , start_hour smallint NOT NULL --renamed from hour due to keyword conflict
     , start_day smallint NOT NULL --renamed from day due to keyword conflict
     , start_week smallint NOT NULL -- renamed from week for consistency
