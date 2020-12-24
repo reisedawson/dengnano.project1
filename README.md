@@ -107,3 +107,13 @@ This was generated using the following SQL SELECT query:
     JOIN users AS u ON sp.user_id = u.user_id
     JOIN dim_time AS dt ON sp.start_time = dt.start_time
     WHERE title IS NOT NULL OR artist_name IS NOT NULL
+
+
+### Instructions
+
+1. Clone repo into a directory on your computer. 
+2. Create a virtual environment and activate
+3. Install requirements (use requirements-dev if you will be developing against this repo or requirements-prod if just running the ETL pipeline)
+3. Make sure Postgresql is running locally on your machine on the default port wit a database named studentdb that has a user called student, with the password student. This will be used for the initial database connection.
+4. Using Python, run src/create_tables.py
+5. Using Python, run src/etl.py
