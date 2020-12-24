@@ -107,10 +107,3 @@ This was generated using the following SQL SELECT query:
     JOIN users AS u ON sp.user_id = u.user_id
     JOIN dim_time AS dt ON sp.start_time = dt.start_time
     WHERE title IS NOT NULL OR artist_name IS NOT NULL
-
-
-
-
-TODO:
-- Insert data using COPY FROM
-
