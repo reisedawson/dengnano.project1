@@ -80,7 +80,7 @@ There are several constraints applied to the database that may be worth highligh
 
 
 **songplays table**
-- `songplay_id`: This field has been defined as the primary key for this table, automatically bringing with it the UNIQUE and NOT NULL constraints. We do not want to end up with duplicate times in this table. It is also defined with the `SERIAL` keyword - this means that we can allow the insertion process to auto-generate an auto-incrementing ingetger key value to input here. This is useful as we don't have anything immediately available to use within the logs data.
+- `songplay_id`: This field has been defined as the primary key for this table, automatically bringing with it the UNIQUE and NOT NULL constraints. We do not want to end up with duplicate times in this table. It is also defined with the `SERIAL` keyword - this means that we can allow the insertion process to auto-generate an auto-incrementing integer key value to input here. This is useful as we don't have anything immediately available to use within the logs data.
 - `start_time`, `user_id`, `song_id` and `artist_id` all REFERENCE their respective dimension tables as FOREIGN KEY constraints. This is so that we can ensure referential integrity. I have applied the NOT NULL constraint to the `user_id` and `start_time` fields as they will be coming from the same source files. I would apply the same constraint to the other two foreign keys but with only this small sample of data we don't have the extensive song and artist lists we would have in production and so for the purposes of testing the ETL process I have removed these constraints and therefore the artist and song id columns will allow NULLs. 
 
 
