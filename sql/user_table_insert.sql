@@ -1,4 +1,4 @@
 INSERT INTO users (user_id, first_name, last_name, gender, user_level)
 VALUES (%s, %s, %s, %s, %s)
 ON CONFLICT (user_id)
-DO NOTHING;
+DO UPDATE SET user_level = EXCLUDED.user_level;

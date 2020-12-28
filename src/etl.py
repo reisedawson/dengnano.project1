@@ -8,6 +8,19 @@ from sql_queries import song_table_insert, artist_table_insert, \
 
 
 def process_song_file(cur, filepath):
+    """
+    Insert song and artist info from JSON song file to database.
+
+    Opens a JSON formatted song file, extracts relevant information about the the 
+    artist and the song itself and then inserts both sets of data into the 
+    respective database tables. Does not explicitly return anything.
+
+    Arguments:
+        cur {database cursor} -- open cursor on a connection to the sparkifydb
+                                 with write permission
+        filepath {string} -- path to JSON formatted song file
+    """
+
     # open song file
     df = pd.read_json(open(filepath, 'r'), typ='series')
 
@@ -25,6 +38,20 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    Insert user, songplay and time info from JSON log file to database.
+
+    Opens a JSON formatted daily log file, extracts relevant information about
+    the user, time the song was played and the activity itself and then inserts
+    all sets of data into the respective database tables. Does not explicitly 
+    return anything.
+
+    Arguments:
+        cur {database cursor} -- open cursor on a connection to the sparkifydb
+                                 with write permission
+        filepath {string} -- path to JSON formatted log file
+    """
+
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -73,6 +100,21 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    Iterate over JSON files in a directory and run specified function on them.
+
+    Finds all JSON files within a directory and then attempts to process each file
+    using the specified function.
+
+    Arguments:
+        cur {database cursor} -- open cursor on a connection to the sparkifydb
+                                 with write permission
+        conn {database connection} -- open database connection that has the
+                                      aforementioned cursor attached
+        filepath {string} -- path to JSON formatted file directory
+        func {string} -- name of function to run on each discovered JSON file
+    """
+
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -92,6 +134,14 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """
+    Runs ETL process for sparkify logs and song files.
+
+    Connects to the sparkify analytics database, creates a cursor and then runs
+    the ETL process to populate the database with available song play logs and
+    and song information stored in JSON files.
+    """
+
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student \
                             password=student")
     cur = conn.cursor()
